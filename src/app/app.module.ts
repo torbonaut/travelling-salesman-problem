@@ -9,6 +9,7 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {NgxsStoragePluginModule} from '@ngxs/storage-plugin';
 import {DoctorsState} from './store/doctors.state';
 import {DoctorsService} from './services/doctors.service';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {DoctorsService} from './services/doctors.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    LeafletModule,
     NgxsModule.forRoot([
       DoctorsState
     ], {
