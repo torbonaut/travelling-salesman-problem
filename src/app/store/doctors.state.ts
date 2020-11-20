@@ -39,7 +39,6 @@ export class DoctorsState implements NgxsOnInit {
     ctx.patchState({ loading: true });
     return this.doctorsService.load().pipe(
       tap( (data) => {
-        console.log(data);
         ctx.patchState({ items: data });
       }),
       catchError( (error: any) => {

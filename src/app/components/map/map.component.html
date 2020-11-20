@@ -1,0 +1,9 @@
+<div
+  class="leaflet-map"
+  leaflet
+  [leafletOptions]="mapOptions"
+  [leafletLayersControl]="layersControl"
+>
+  <div *ngFor="let item of allDoctors$ | async" [leafletLayer]="getLayer(item)"></div>
+</div>
+

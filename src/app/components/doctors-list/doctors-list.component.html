@@ -1,0 +1,7 @@
+<p-accordion>
+  <p-accordionTab *ngFor="let doctor of (allDoctors | async)" [header]="doctor.name">
+    {{ doctor.street }}<br />
+    {{ doctor.postalCode }} {{ doctor.city }}, {{ doctor.country }}<br />
+    {{ doctor.phone }}
+  </p-accordionTab>
+</p-accordion>

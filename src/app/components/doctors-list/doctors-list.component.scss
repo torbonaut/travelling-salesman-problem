@@ -1,0 +1,13 @@
+p-accordionTab {
+  font-size: 0.8rem;
+  font-weight: normal;
+
+    a {
+      padding: 0.5rem;
+    }
+
+}
+
+:host ::ng-deep .p-accordion p-accordiontab .p-accordion-header .p-accordion-header-link {
+  padding: 0.5rem;
+}

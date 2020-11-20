@@ -10,15 +10,23 @@ import {NgxsStoragePluginModule} from '@ngxs/storage-plugin';
 import {DoctorsState} from './store/doctors.state';
 import {DoctorsService} from './services/doctors.service';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {ListboxModule} from 'primeng/listbox';
+import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
+import { MapComponent } from './components/map/map.component';
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DoctorsListComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     LeafletModule,
+    ListboxModule,
+    AccordionModule,
     NgxsModule.forRoot([
       DoctorsState
     ], {
