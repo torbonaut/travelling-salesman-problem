@@ -1,11 +1,17 @@
 import {Doctor} from '../models/doctor.model';
 
 export interface DoctorsStateModel {
-  loading: boolean;
+  loadingItems: boolean;
+  loadedItems: boolean;
+  loadingCoordinates: boolean;
+  loadedCoordinates: boolean;
   items: Doctor[];
 }
 
 export const DoctorsStateDefaults = {
-  loading: false,
+  loadingItems: false,
+  loadedItems: false,
+  loadingCoordinates: false,
+  loadedCoordinates: false,
   items: []
 };

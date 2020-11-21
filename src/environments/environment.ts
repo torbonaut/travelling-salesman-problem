@@ -8,7 +8,8 @@ export const environment = {
   centerLat: 46.62472,
   centerLong: 14.30528,
   defaultZoom: 15,
-  openCycleMapApiKey: '58a41078740f435ebe57815e5da0900f'
+  openCycleMapApiKey: '58a41078740f435ebe57815e5da0900f',
+  openRouteAPIUrl: 'https://api.openrouteservice.org'
 };
 
 /*

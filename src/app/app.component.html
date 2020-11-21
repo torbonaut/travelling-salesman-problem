@@ -1,6 +1,8 @@
 <div class="p-grid container">
   <div class="p-col-fixed sidebar">
     <app-doctors-list></app-doctors-list>
+    <p-button (onClick)="loadDoctors()">Ärzte neu laden</p-button>
+    <p-button (onClick)="loadCoordinates()">Koordinaten laden</p-button>
   </div>
   <div class="p-col p-p-0 ">
     <app-map></app-map>

@@ -14,6 +14,9 @@ import {ListboxModule} from 'primeng/listbox';
 import { DoctorsListComponent } from './components/doctors-list/doctors-list.component';
 import { MapComponent } from './components/map/map.component';
 import {AccordionModule} from 'primeng/accordion';
+import {HttpClientModule} from '@angular/common/http';
+import {OpenRouteService} from './services/open.route.service';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -24,9 +27,11 @@ import {AccordionModule} from 'primeng/accordion';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     LeafletModule,
     ListboxModule,
     AccordionModule,
+    ButtonModule,
     NgxsModule.forRoot([
       DoctorsState
     ], {
@@ -36,7 +41,8 @@ import {AccordionModule} from 'primeng/accordion';
     NgxsReduxDevtoolsPluginModule.forRoot({ name: 'travellingsalesmanproblem'})
   ],
   providers: [
-    DoctorsService
+    DoctorsService,
+    OpenRouteService
   ],
   bootstrap: [AppComponent]
 })
