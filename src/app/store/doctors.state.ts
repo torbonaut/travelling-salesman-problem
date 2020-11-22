@@ -6,16 +6,14 @@ import {DoctorsService} from '../services/doctors.service';
 import {catchError, tap} from 'rxjs/operators';
 import {Doctor} from '../models/doctor.model';
 import {OpenRouteService} from '../services/open.route.service';
-import {Subscription} from 'rxjs';
+import {forkJoin, Subscription} from 'rxjs';
 
 @State<DoctorsStateModel>({
   name: 'doctors',
   defaults: DoctorsStateDefaults
 })
 @Injectable()
-export class DoctorsState implements NgxsOnInit, OnDestroy {
-  subscriptions: Subscription = new Subscription();
-
+export class DoctorsState implements NgxsOnInit {
   constructor(
     private doctorsService: DoctorsService,
     private openRouteService: OpenRouteService,
@@ -42,18 +40,14 @@ export class DoctorsState implements NgxsOnInit, OnDestroy {
 
   ngxsOnInit(ctx?: StateContext<any>): any {
     const state: DoctorsStateModel = ctx.getState();
-    if (state.loadedItems !== true) {
+
+    this.actions.pipe(
+      ofActionSuccessful(DoctorsLoad)
+    ).subscribe( () => this.store.dispatch(new DoctorsHydrateCoordinates()));
+
+    if (state.loadedItems === false) {
       this.store.dispatch(new DoctorsLoad());
     }
-
-    this.subscriptions.add(
-      this.actions.pipe(
-        ofActionSuccessful(DoctorsLoad)
-      ).subscribe( () => {
-        console.log('KNJD');
-        this.store.dispatch(new DoctorsHydrateCoordinates());
-      })
-    );
   }
 
   @Action(DoctorsLoad)
@@ -73,25 +67,34 @@ export class DoctorsState implements NgxsOnInit, OnDestroy {
   @Action(DoctorsHydrateCoordinates)
   hydrateCoordinates(ctx: StateContext<DoctorsStateModel>, action: DoctorsHydrateCoordinates): any {
     const state = ctx.getState();
+    console.log(state);
+    const doctors: Doctor[] = [...state.items];
+    const observables = [];
+    const items: Doctor[] = [];
     ctx.patchState({ loadingCoordinates: true });
-    const newDoctors: Doctor[] = [];
-    state.items.forEach( (doctor: Doctor) => {
-      this.openRouteService
-        .getCoordinatsByAddress(doctor.street + ', ' + doctor.postalCode + ' ' + doctor.city)
-        .toPromise()
-        .then( (response) => {
-          const boundingBox: number[] = response.bbox;
-          const lat: number = boundingBox[1] + (boundingBox[3] - boundingBox[1]) / 2;
-          const long: number = boundingBox[0] + (boundingBox[2] - boundingBox[0]) / 2;
-          const doctorWithCoordinates: Doctor = { ...doctor, lat, long };
-          newDoctors.push(doctorWithCoordinates);
-        });
-    });
-    console.log(newDoctors);
-    ctx.patchState( { items: [...newDoctors], loadingCoordinates: false, loadedCoordinates: true });
-  }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    doctors.forEach( (doctor: Doctor) => {
+      observables.push(this.openRouteService
+        .getCoordinatsByAddress(doctor.street + ', ' + doctor.postalCode + ' ' + doctor.city)
+      );
+    });
+
+    return forkJoin(observables)
+        .pipe(
+          catchError( err => {
+            ctx.patchState({ loadedCoordinates: false, loadingCoordinates: false });
+            return err;
+          }),
+          tap((result: any) => {
+            doctors.forEach( (doctor: Doctor, index: number) => {
+              const boundingBox = result[index]?.bbox;
+              const lat = boundingBox[1] + (boundingBox[3] - boundingBox[1]) / 2;
+              const long = boundingBox[0] + (boundingBox[2] - boundingBox[0]) / 2;
+              const newD: Doctor = { ...doctor, lat, long };
+              items.push(newD);
+            });
+            ctx.setState( { ...state, items: [...items], loadingCoordinates: false, loadedCoordinates: true });
+          })
+        );
   }
 }

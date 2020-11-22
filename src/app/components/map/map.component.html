@@ -4,5 +4,5 @@
   [leafletOptions]="mapOptions"
   [leafletLayersControl]="layersControl"
 >
-  <div *ngFor="let item of allDoctors$ | async" [leafletLayer]="getLayer(item)"></div>
+  <div *ngFor="let item of allDoctors$ | async" [leafletLayer]="getLayer(item)" (leafletLayerAdd)="added($event)"></div>
 </div>

@@ -1,12 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {circle, latLng, Layer, Marker, marker, polygon, tileLayer} from 'leaflet';
+import {circle, icon, latLng, Layer, Marker, marker, polygon, tileLayer} from 'leaflet';
 import {environment} from '../../../environments/environment';
 import {Select} from '@ngxs/store';
 import {DoctorsState} from '../../store/doctors.state';
 import {Observable, of} from 'rxjs';
 import {Doctor} from '../../models/doctor.model';
 import {OpenRouteService} from '../../services/open.route.service';
-import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
@@ -41,7 +40,18 @@ export class MapComponent implements OnInit {
 
   getLayer(item: Doctor): Layer {
     return marker([item.lat, item.long], {
-      title: item.name
+      title: item.name,
+      icon: icon({
+        iconSize: [ 25, 41 ],
+        iconAnchor: [ 13, 41 ],
+        iconUrl: 'assets/marker-icon.png',
+        shadowUrl: 'assets/marker-shadow.png'
+      }),
+
     });
+  }
+
+  added($event): void {
+
   }
 }
