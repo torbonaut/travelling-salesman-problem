@@ -17,12 +17,15 @@ import {AccordionModule} from 'primeng/accordion';
 import {HttpClientModule} from '@angular/common/http';
 import {OpenRouteService} from './services/open.route.service';
 import {ButtonModule} from 'primeng/button';
+import { RouteListComponent } from './components/route-list/route-list.component';
+import {RouteState} from './store/route.state';
 
 @NgModule({
   declarations: [
     AppComponent,
     DoctorsListComponent,
-    MapComponent
+    MapComponent,
+    RouteListComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import {ButtonModule} from 'primeng/button';
     AccordionModule,
     ButtonModule,
     NgxsModule.forRoot([
-      DoctorsState
+      DoctorsState,
+      RouteState
     ], {
       developmentMode: !environment.production
     }),

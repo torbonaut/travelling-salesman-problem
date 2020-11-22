@@ -1,8 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Select} from '@ngxs/store';
+import {Select, Store} from '@ngxs/store';
 import {DoctorsState} from '../../store/doctors.state';
 import {Observable} from 'rxjs';
 import {Doctor} from '../../models/doctor.model';
+import {RouteAddWaypoint} from '../../store/route-state.actions';
 
 @Component({
   selector: 'app-doctors-list',
@@ -11,11 +12,17 @@ import {Doctor} from '../../models/doctor.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DoctorsListComponent implements OnInit {
-  @Select(DoctorsState.allDoctors) allDoctors: Observable<Doctor[]>;
+  @Select(DoctorsState.allDoctors) allDoctors$: Observable<Doctor[]>;
 
-  constructor() { }
+  constructor(
+    private store: Store
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  addWaypoint(doctor: Doctor): void {
+    this.store.dispatch(new RouteAddWaypoint(doctor));
   }
 
 }
