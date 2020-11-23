@@ -3,7 +3,7 @@ import {Select, Store} from '@ngxs/store';
 import {DoctorsState} from '../../store/doctors.state';
 import {Observable} from 'rxjs';
 import {Doctor} from '../../models/doctor.model';
-import {RouteAddWaypoint} from '../../store/route-state.actions';
+import {DoctorsToggleWaypoint} from '../../store/doctors-state.actions';
 
 @Component({
   selector: 'app-doctors-list',
@@ -21,8 +21,7 @@ export class DoctorsListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addWaypoint(doctor: Doctor): void {
-    this.store.dispatch(new RouteAddWaypoint(doctor));
+  toggleWaypoint(doctor: Doctor): void {
+    this.store.dispatch(new DoctorsToggleWaypoint(doctor.id));
   }
-
 }

@@ -15,7 +15,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 513232',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 2,
@@ -26,7 +27,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 56302',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 3,
@@ -37,7 +39,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 211800',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 4,
@@ -48,7 +51,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 210012',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 5,
@@ -59,7 +63,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 418970',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 6,
@@ -70,7 +75,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 501789',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 7,
@@ -81,7 +87,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 511110',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 8,
@@ -92,7 +99,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 347003',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 9,
@@ -103,7 +111,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 515053',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 10,
@@ -114,7 +123,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 43177',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 11,
@@ -125,7 +135,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 440494',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 12,
@@ -136,7 +147,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 511573',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 13,
@@ -147,7 +159,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 514430',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 14,
@@ -158,7 +171,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0699 81436405',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 15,
@@ -169,7 +183,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 23354',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 16,
@@ -180,7 +195,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 340440',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 17,
@@ -191,7 +207,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 281485',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 18,
@@ -202,7 +219,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0463 21596',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 19,
@@ -213,7 +231,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0699 12704212',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       },
       {
         id: 20,
@@ -224,7 +243,8 @@ export class DoctorsService {
         country: 'Austria',
         phone: '0664 4427605',
         lat: 123,
-        long: 23
+        long: 23,
+        isWaypoint: false
       }
     ]);
   }

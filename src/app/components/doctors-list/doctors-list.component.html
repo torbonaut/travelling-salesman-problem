@@ -3,6 +3,8 @@
     {{ doctor.street }}<br />
     {{ doctor.postalCode }} {{ doctor.city }}, {{ doctor.country }}<br />
     {{ doctor.phone }}<br /><br />
-    <p-button (onClick)="addWaypoint(doctor)">zu Route hinzufügen</p-button>
+    <p-button (onClick)="toggleWaypoint(doctor)">
+      {{ doctor.isWaypoint === true ? 'von Route entfernen' : 'zu Route hinzufügen'}}
+    </p-button>
   </p-accordionTab>
 </p-accordion>

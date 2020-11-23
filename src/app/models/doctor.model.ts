@@ -8,4 +8,5 @@ export interface Doctor {
   phone: string;
   lat: number;
   long: number;
+  isWaypoint: boolean;
 }

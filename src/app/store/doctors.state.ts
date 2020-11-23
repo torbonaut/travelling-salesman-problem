@@ -1,7 +1,7 @@
 import {DoctorsStateDefaults, DoctorsStateModel} from './doctors-state.model';
 import {Injectable, OnDestroy} from '@angular/core';
 import {Action, Actions, NgxsOnInit, ofActionSuccessful, Selector, State, StateContext, Store} from '@ngxs/store';
-import {DoctorsHydrateCoordinates, DoctorsLoad} from './doctors-state.actions';
+import {DoctorsHydrateCoordinates, DoctorsLoad, DoctorsToggleWaypoint} from './doctors-state.actions';
 import {DoctorsService} from '../services/doctors.service';
 import {catchError, tap} from 'rxjs/operators';
 import {Doctor} from '../models/doctor.model';
@@ -96,5 +96,17 @@ export class DoctorsState implements NgxsOnInit {
             ctx.setState( { ...state, items: [...items], loadingCoordinates: false, loadedCoordinates: true });
           })
         );
+  }
+
+  @Action(DoctorsToggleWaypoint)
+  toggleWaypoint(ctx: StateContext<DoctorsStateModel>, action: DoctorsToggleWaypoint): any {
+    const state = ctx.getState();
+    const items = [...state.items];
+    const doctor = { ...items.find( (item: Doctor) => item.id === action.doctorId) };
+    const index = items.findIndex( (d: Doctor) => d.id === action.doctorId);
+    doctor.isWaypoint = !doctor.isWaypoint;
+    items[index] = doctor;
+    console.log(items);
+    ctx.patchState({ items });
   }
 }
