@@ -1,10 +1,18 @@
-<p-accordion>
-  <p-accordionTab *ngFor="let doctor of (allDoctors$ | async)" [header]="doctor.name">
-    {{ doctor.street }}<br />
-    {{ doctor.postalCode }} {{ doctor.city }}, {{ doctor.country }}<br />
-    {{ doctor.phone }}<br /><br />
-    <p-button (onClick)="toggleWaypoint(doctor)">
-      {{ doctor.isWaypoint === true ? 'von Route entfernen' : 'zu Route hinzufügen'}}
-    </p-button>
-  </p-accordionTab>
-</p-accordion>
+<ul>
+  <li *ngFor="let doctor of (allDoctors$ | async)" [ngClass]="{ 'selected': doctor.isWaypoint === true }">
+    <i class="info pi pi-info-circle" (click)="showInfoDialog(doctor)"></i>
+    {{ doctor.title }} {{ doctor.lastname }}, {{ doctor.firstname }}
+    <i
+      *ngIf="doctor.isWaypoint === false" class="toggle pi pi-plus-circle" (click)="toggleWaypoint(doctor)"></i>
+    <i *ngIf="doctor.isWaypoint === true" class="toggle pi pi-minus-circle" (click)="toggleWaypoint(doctor)"></i>
+  </li>
+</ul>
+
+<p-dialog
+  position="center"
+  [header]="dialogTitle"
+  [visible]="dialogDisplay$ | async"
+  (visibleChange)="hideInfoDialog($event)"
+  appendTo="body"
+  [modal]="true">
+</p-dialog>

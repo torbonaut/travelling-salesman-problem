@@ -26,7 +26,8 @@ export class MapComponent implements OnInit {
 
   layersControl = {
     baseLayers: {
-      'Open Street Map': tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' }),
+      'Open Street Map': tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        { maxZoom: 18, attribution: '...' }),
       'Open Cycle Map': tileLayer('https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=' + environment.openCycleMapApiKey,
         { maxZoom: 18, attribution: '...' })
     }
@@ -40,7 +41,7 @@ export class MapComponent implements OnInit {
 
   getLayer(item: Doctor): Layer {
     return marker([item.lat, item.long], {
-      title: item.name,
+      title: item.title + ' ' + item.lastname + ', ' + item.firstname,
       icon: icon({
         iconSize: [ 25, 41 ],
         iconAnchor: [ 13, 41 ],

@@ -17,6 +17,10 @@ import {AccordionModule} from 'primeng/accordion';
 import {HttpClientModule} from '@angular/common/http';
 import {OpenRouteService} from './services/open.route.service';
 import {ButtonModule} from 'primeng/button';
+import {ToolbarModule} from 'primeng/toolbar';
+import {SidebarModule} from 'primeng/sidebar';
+import {UiState} from './store/ui.state';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -30,10 +34,13 @@ import {ButtonModule} from 'primeng/button';
     HttpClientModule,
     LeafletModule,
     ListboxModule,
-    AccordionModule,
     ButtonModule,
+    ToolbarModule,
+    SidebarModule,
+    DialogModule,
     NgxsModule.forRoot([
-      DoctorsState
+      DoctorsState,
+      UiState
     ], {
       developmentMode: !environment.production
     }),

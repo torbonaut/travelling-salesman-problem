@@ -23,7 +23,11 @@ export class DoctorsState implements NgxsOnInit {
 
   @Selector()
   static allDoctors(state: DoctorsStateModel): Doctor[] {
-    return state.items;
+    return state.items.sort( (a: Doctor, b: Doctor) => {
+      if (a.lastname > b.lastname) { return 1; }
+      if (a.lastname < b.lastname) { return -1; }
+      return 0;
+    });
   }
 
   @Selector()

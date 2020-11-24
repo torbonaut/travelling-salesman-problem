@@ -1,6 +1,8 @@
 export interface Doctor {
   id: number;
-  name: string;
+  title: string;
+  firstname: string;
+  lastname: string;
   street: string;
   postalCode: string;
   city: string;
