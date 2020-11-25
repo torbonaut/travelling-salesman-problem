@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let doctor of (allDoctors$ | async)" [ngClass]="{ 'selected': doctor.isWaypoint === true }">
+  <li *ngFor="let doctor of sortedDoctors$ | async" [ngClass]="{ 'selected': doctor.isWaypoint === true }">
     <i class="info pi pi-info-circle" (click)="showInfoDialog(doctor)"></i>
     {{ doctor.title }} {{ doctor.lastname }}, {{ doctor.firstname }}
     <i

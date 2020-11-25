@@ -6,7 +6,7 @@ import {DoctorsService} from '../services/doctors.service';
 import {catchError, tap} from 'rxjs/operators';
 import {Doctor} from '../models/doctor.model';
 import {OpenRouteService} from '../services/open.route.service';
-import {forkJoin, Subscription} from 'rxjs';
+import {forkJoin, of, Subscription} from 'rxjs';
 
 @State<DoctorsStateModel>({
   name: 'doctors',
@@ -23,11 +23,7 @@ export class DoctorsState implements NgxsOnInit {
 
   @Selector()
   static allDoctors(state: DoctorsStateModel): Doctor[] {
-    return state.items.sort( (a: Doctor, b: Doctor) => {
-      if (a.lastname > b.lastname) { return 1; }
-      if (a.lastname < b.lastname) { return -1; }
-      return 0;
-    });
+    return state.items;
   }
 
   @Selector()
@@ -103,14 +99,13 @@ export class DoctorsState implements NgxsOnInit {
   }
 
   @Action(DoctorsToggleWaypoint)
-  toggleWaypoint(ctx: StateContext<DoctorsStateModel>, action: DoctorsToggleWaypoint): any {
+  toggleWaypoint(ctx: StateContext<DoctorsStateModel>, action: DoctorsToggleWaypoint): void {
     const state = ctx.getState();
     const items = [...state.items];
     const doctor = { ...items.find( (item: Doctor) => item.id === action.doctorId) };
     const index = items.findIndex( (d: Doctor) => d.id === action.doctorId);
     doctor.isWaypoint = !doctor.isWaypoint;
-    items[index] = doctor;
-    console.log(items);
-    ctx.patchState({ items });
+    items[index] = {...doctor};
+    ctx.patchState({ items: [...items] });
   }
 }

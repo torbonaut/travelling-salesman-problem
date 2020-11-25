@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {circle, icon, latLng, Layer, Marker, marker, polygon, tileLayer} from 'leaflet';
+import {circle, Icon, icon, latLng, Layer, Marker, marker, polygon, tileLayer} from 'leaflet';
 import {environment} from '../../../environments/environment';
 import {Select} from '@ngxs/store';
 import {DoctorsState} from '../../store/doctors.state';
@@ -42,14 +42,26 @@ export class MapComponent implements OnInit {
   getLayer(item: Doctor): Layer {
     return marker([item.lat, item.long], {
       title: item.title + ' ' + item.lastname + ', ' + item.firstname,
-      icon: icon({
-        iconSize: [ 25, 41 ],
-        iconAnchor: [ 13, 41 ],
-        iconUrl: 'assets/marker-icon.png',
-        shadowUrl: 'assets/marker-shadow.png'
-      }),
-
+      icon: this.getIcon(item.isWaypoint)
     });
+  }
+
+  getIcon(isWaypoint: boolean): Icon {
+    if (isWaypoint === true) {
+      return icon({
+        iconSize: [ 32, 32 ],
+        iconAnchor: [ 16, 31 ],
+        iconUrl: 'assets/marker-green.png',
+        shadowUrl: 'assets/marker-green-shadow.png'
+      });
+    } else {
+      return icon({
+        iconSize: [ 32, 32 ],
+        iconAnchor: [ 16, 31 ],
+        iconUrl: 'assets/marker-red.png',
+        shadowUrl: 'assets/marker-red-shadow.png'
+      });
+    }
   }
 
   added($event): void {

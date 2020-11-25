@@ -4,6 +4,7 @@ import {DoctorsState} from '../../store/doctors.state';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Doctor} from '../../models/doctor.model';
 import {DoctorsToggleWaypoint} from '../../store/doctors-state.actions';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-doctors-list',
@@ -13,6 +14,7 @@ import {DoctorsToggleWaypoint} from '../../store/doctors-state.actions';
 })
 export class DoctorsListComponent implements OnInit {
   @Select(DoctorsState.allDoctors) allDoctors$: Observable<Doctor[]>;
+  sortedDoctors$: Observable<Doctor[]>;
   dialogTitle: string;
   dialogContent: string;
   dialogDisplay$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -22,6 +24,12 @@ export class DoctorsListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.sortedDoctors$ = this.allDoctors$.pipe(
+      map( (doctors: Doctor[]) => {
+        const d: Doctor[] = [...doctors];
+        return d.sort( (a: Doctor, b: Doctor) => a.lastname.localeCompare(b.lastname));
+      })
+    );
   }
 
   toggleWaypoint(doctor: Doctor): void {
@@ -35,7 +43,6 @@ export class DoctorsListComponent implements OnInit {
   }
 
   hideInfoDialog($event: CustomEvent): void {
-    console.log('Yolo Hide!');
     this.dialogDisplay$.next(false);
   }
 }
