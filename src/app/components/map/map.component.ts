@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, NgZone, Component, OnInit} from '@angular/core';
 import {Icon, icon, latLng, Layer, LeafletEvent, marker, tileLayer} from 'leaflet';
 import {environment} from '../../../environments/environment';
 import {Select} from '@ngxs/store';
@@ -35,7 +35,8 @@ export class MapComponent implements OnInit {
   };
 
   constructor(
-    private openRoute: OpenRouteService
+    private openRoute: OpenRouteService,
+    private zone: NgZone
   ) { }
 
   ngOnInit(): void {}
@@ -67,7 +68,7 @@ export class MapComponent implements OnInit {
 
   addClickHandler($event: LeafletEvent, item: Doctor): void {
     $event.target.addEventListener('click', () => {
-      this.selectedDoctor$.next(item);
+      this.zone.run( () => this.selectedDoctor$.next(item));
     });
   }
 }
