@@ -14,21 +14,17 @@ export class DoctorInfoModalComponent implements OnInit {
   doctor$: Observable<Doctor>;
   display$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(
-    private cd: ChangeDetectorRef
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.doctor$ = this.selectedDoctor$.pipe(
       tap( (doctor: Doctor) => {
         this.display$.next(true);
-
       })
     );
   }
 
   closeDialog(): void {
     this.display$.next(false);
-
   }
 }
