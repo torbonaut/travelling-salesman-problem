@@ -3,7 +3,7 @@
     [style]="{ width: '80%', maxWidth: '240px' }"
     position="center"
     [visible]="display$ | async"
-    (visibleChange)="display$.next(false)"
+    (visibleChange)="closeDialog()"
     appendTo="body"
     [modal]="true"
     [closable]="false"
@@ -30,7 +30,7 @@
       <strong>{{ doctor.title }} {{ doctor.lastname }}, {{ doctor.firstname }}</strong>
     </ng-template>
     <ng-template pTemplate="footer">
-      <p-button icon="pi pi-check" (click)="display$.next(false)" label="Ok" styleClass="p-button-text"></p-button>
+      <p-button icon="pi pi-check" (click)="closeDialog()" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
   </p-dialog>
 </ng-container>

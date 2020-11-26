@@ -22,9 +22,13 @@ export class DoctorInfoModalComponent implements OnInit {
     this.doctor$ = this.selectedDoctor$.pipe(
       tap( (doctor: Doctor) => {
         this.display$.next(true);
-        console.log(doctor);
         this.cd.detectChanges();
       })
     );
+  }
+
+  closeDialog(): void {
+    this.display$.next(false);
+    this.cd.detectChanges();
   }
 }
