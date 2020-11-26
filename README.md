@@ -2,11 +2,22 @@
 
 I wanted to dig into the [Travelling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem#Computing_a_solution) for a friend who is in bicyle delivery and by the way, it was a good chance to use PrimeNG and Leaflet for the first time.
 
-This Angular 10 Project uses
-- [PrimeNG](https://primefaces.org/primeng/showcase/#/)
+You can select Waypoints from a list of doctors in Klagenfurt am Wörthersee and given your current location it calculates the shortest route to pass all waypoints.
+
+This Project uses
+- [Angular 10](https://angular.io/)
+- [PrimeNG](https://primefaces.org/primeng/showcase/#/) UI Library
 - [NGXS Store](https://www.ngxs.io/) with Storage and DevTools Plugin
-- [Leaflet](https://leafletjs.com/) + [ngxLeaflet](https://github.com/Asymmetrik/ngx-leaflet)
-- [Open Route Service API](https://openrouteservice.org/)
+- [Leaflet](https://leafletjs.com/) + [ngxLeaflet](https://github.com/Asymmetrik/ngx-leaflet) map display + angular wrapper
+- [Open Route Service API](https://openrouteservice.org/) get GeoCoordinates from Address
+
+## Setup
+
+Clone the git repository and install all npm dependencies.
+
+    git clone https://github.com/torbonaut/travelling-salesman-problem
+    cd travelling-salesman-problem
+    npm install
 
 ## Development server
 

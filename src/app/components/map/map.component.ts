@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {circle, Icon, icon, latLng, Layer, Marker, marker, polygon, tileLayer} from 'leaflet';
+import {Icon, icon, latLng, Layer, LeafletEvent, marker, tileLayer} from 'leaflet';
 import {environment} from '../../../environments/environment';
 import {Select} from '@ngxs/store';
 import {DoctorsState} from '../../store/doctors.state';
-import {Observable, of} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Doctor} from '../../models/doctor.model';
 import {OpenRouteService} from '../../services/open.route.service';
 
@@ -15,6 +15,7 @@ import {OpenRouteService} from '../../services/open.route.service';
 })
 export class MapComponent implements OnInit {
   @Select(DoctorsState.allDoctors) allDoctors$: Observable<Doctor[]>;
+  selectedDoctor$: Subject<Doctor> = new Subject();
 
   mapOptions = {
     layers: [
@@ -64,7 +65,10 @@ export class MapComponent implements OnInit {
     }
   }
 
-  added($event): void {
-
+  addClickHandler($event: LeafletEvent, item: Doctor): void {
+    $event.target.addEventListener('click', () => {
+      this.selectedDoctor$.next(item);
+    });
   }
 }
+

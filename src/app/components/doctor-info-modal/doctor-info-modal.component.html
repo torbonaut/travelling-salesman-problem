@@ -1,0 +1,36 @@
+<ng-container *ngIf="(doctor$ | async) as doctor">
+  <p-dialog
+    [style]="{ width: '80%', maxWidth: '240px' }"
+    position="center"
+    [visible]="display$ | async"
+    (visibleChange)="display$.next(false)"
+    appendTo="body"
+    [modal]="true"
+    [closable]="false"
+    [dismissableMask]="true"
+  >
+    <div class="p-grid">
+      <div class="p-col p-col-2">
+        <i class="pi pi-home"></i>
+        <br />
+        <br />
+        <br />
+        <i class="pi pi-phone"></i>
+      </div>
+      <div class="p-col">
+        {{ doctor.street }}
+        <br />
+        {{ doctor.postalCode }} {{ doctor.city }}
+        <br />
+        <br />
+        <a [style]="{ textDecoration: 'none'}" href="tel:{{ doctor.phone }}">{{ doctor.phone }}</a>
+      </div>
+    </div>
+    <ng-template pTemplate="header">
+      <strong>{{ doctor.title }} {{ doctor.lastname }}, {{ doctor.firstname }}</strong>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="display$.next(false)" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+</ng-container>

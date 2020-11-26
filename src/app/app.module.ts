@@ -21,12 +21,14 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {SidebarModule} from 'primeng/sidebar';
 import {UiState} from './store/ui.state';
 import {DialogModule} from 'primeng/dialog';
+import { DoctorInfoModalComponent } from './components/doctor-info-modal/doctor-info-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DoctorsListComponent,
-    MapComponent
+    MapComponent,
+    DoctorInfoModalComponent
   ],
   imports: [
     BrowserModule,

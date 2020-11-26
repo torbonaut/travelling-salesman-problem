@@ -16,7 +16,9 @@ export class DoctorsListComponent implements OnInit {
   @Select(DoctorsState.allDoctors) allDoctors$: Observable<Doctor[]>;
   sortedDoctors$: Observable<Doctor[]>;
   dialogTitle: string;
-  dialogContent: string;
+  dialogStreet: string;
+  dialogPostalCodeCity: string;
+  dialogPhone: string;
   dialogDisplay$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
@@ -38,7 +40,9 @@ export class DoctorsListComponent implements OnInit {
 
   showInfoDialog(doctor: Doctor): void {
     this.dialogTitle = doctor.title + ' ' + doctor.lastname + ', ' + doctor.firstname;
-    this.dialogContent = `Yolo`;
+    this.dialogStreet = doctor.street;
+    this.dialogPostalCodeCity = doctor.postalCode + ' ' + doctor.city;
+    this.dialogPhone = doctor.phone;
     this.dialogDisplay$.next(true);
   }
 

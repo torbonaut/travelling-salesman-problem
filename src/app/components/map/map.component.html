@@ -4,5 +4,10 @@
   [leafletOptions]="mapOptions"
   [leafletLayersControl]="layersControl"
 >
-  <div *ngFor="let item of allDoctors$ | async" [leafletLayer]="getLayer(item)" (leafletLayerAdd)="added($event)"></div>
+  <div
+    *ngFor="let item of allDoctors$ | async"
+    [leafletLayer]="getLayer(item)"
+    (leafletLayerAdd)="addClickHandler($event, item)"
+  ></div>
 </div>
+<app-doctor-info-modal [selectedDoctor$]="selectedDoctor$"></app-doctor-info-modal>
