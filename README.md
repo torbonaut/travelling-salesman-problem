@@ -1,6 +1,6 @@
 # TravellingSalesmanProblem
 
-I wanted to dig into the [Travelling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem#Computing_a_solution) for a friend who is in bicyle delivery and by the way, it was a good chance to use PrimeNG and Leaflet for the first time.
+I wanted to dig into the [Travelling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem#Computing_a_solution) for a friend who is in bicyle delivery and by the way, it was a good chance to use PrimeNG, Leaflet and the Open Route Service API for the first time.
 
 You can select Waypoints from a list of doctors in Klagenfurt am Wörthersee and given your current location it calculates the shortest route to pass all waypoints.
 

@@ -1,0 +1,33 @@
+.terms-privacy-modal.p-dialog {
+  .p-dialog-header {
+    width: 100%;
+    h1 {
+      width: 100%;
+      font-size: 16px;
+      border-bottom: 1px dotted #ccc;
+      padding: 0 0 1em 0;
+      margin: 0 0 1em 0;
+      text-align: center;
+    }
+  }
+
+  .p-dialog-content {
+    font-size: 10px;
+
+    h2 {
+      font-size: 14px;
+      display: block;
+      width: 100%;
+    }
+
+    h3 {
+      font-size: 12px;
+      display: block;
+      width: 100%;
+    }
+
+    p {
+      width: 100%;
+    }
+  }
+}

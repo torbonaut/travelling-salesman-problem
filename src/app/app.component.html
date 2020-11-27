@@ -4,7 +4,7 @@
   </div>
 
   <div class="p-toolbar-group-right">
-    <p-button icon="pi pi-question"></p-button>
+    <p-button icon="pi pi-question" (onClick)="showTermsPrivacyModal()"></p-button>
   </div>
 </p-toolbar>
 <p-sidebar [visible]="menuOpen$ | async" (onHide)="uiToggleMenu()">
@@ -14,3 +14,4 @@
 <div class="p-grid container">
     <app-map></app-map>
 </div>
+<app-terms-privacy-modal [display$]="displayTermsPrivacyModal$"></app-terms-privacy-modal>

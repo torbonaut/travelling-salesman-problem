@@ -1,14 +1,16 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-terms-privacy-modal',
   templateUrl: './terms-privacy-modal.component.html',
   styleUrls: ['./terms-privacy-modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class TermsPrivacyModalComponent implements OnInit {
-  display$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  @Input()
+  display$: BehaviorSubject<boolean>;
 
   constructor() { }
 
