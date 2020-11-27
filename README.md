@@ -17,9 +17,9 @@ This Project uses
 
 1. Clone the git repository and install all npm dependencies.
 
-    git clone https://github.com/torbonaut/travelling-salesman-problem
-    cd travelling-salesman-problem
-    npm install
+        git clone https://github.com/torbonaut/travelling-salesman-problem
+        cd travelling-salesman-problem
+        npm install
 
 2. edit `environment.ts` and `environment.prod.ts` and insert your personal Open Route Service and Open Cycle Map API key. 
 
