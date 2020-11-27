@@ -11,7 +11,7 @@ This Project uses
 - [PrimeNG](https://primefaces.org/primeng/showcase/#/) UI Library
 - [NGXS Store](https://www.ngxs.io/) with Storage and DevTools Plugin
 - [Leaflet](https://leafletjs.com/) + [ngxLeaflet](https://github.com/Asymmetrik/ngx-leaflet) map display + angular wrapper
-- [Open Route Service API](https://openrouteservice.org/) get GeoCoordinates from Address
+- [Open Route Service API](https://openrouteservice.org/) get GeoCoordinates from Address and find optimized Route
 
 ## Setup
 
