@@ -6,6 +6,8 @@ import {DoctorsState} from '../../store/doctors.state';
 import {Observable, Subject} from 'rxjs';
 import {Doctor} from '../../models/doctor.model';
 import {OpenRouteService} from '../../services/open.route.service';
+import {SettingsState} from '../../store/settings.state';
+import {SettingsStateModel} from '../../store/settings-state.model';
 
 @Component({
   selector: 'app-map',
@@ -16,6 +18,7 @@ import {OpenRouteService} from '../../services/open.route.service';
 export class MapComponent implements OnInit {
   @Select(DoctorsState.allDoctors) allDoctors$: Observable<Doctor[]>;
   selectedDoctor$: Subject<Doctor> = new Subject();
+  @Select(SettingsState.settings) settings$: Observable<SettingsStateModel>;
 
   mapOptions = {
     layers: [
@@ -64,6 +67,18 @@ export class MapComponent implements OnInit {
         shadowUrl: 'assets/marker-red-shadow.png'
       });
     }
+  }
+
+  getHomeLayer(settings: SettingsStateModel): Layer {
+    return marker([settings.homeLatitude, settings.homeLongitude], {
+      title: settings.homeTitle,
+      icon: icon( {
+        iconSize: [32, 32],
+        iconAnchor: [16, 31],
+        iconUrl: 'assets/marker-home.png',
+        shadowUrl: 'assets/marker-home-shadow.png'
+      })
+    });
   }
 
   addClickHandler($event: LeafletEvent, item: Doctor): void {

@@ -5,6 +5,11 @@
   [leafletLayersControl]="layersControl"
 >
   <div
+    *ngIf="(settings$ | async) as settings"
+    [leafletLayer]="getHomeLayer(settings)"
+  >
+  </div>
+  <div
     *ngFor="let item of allDoctors$ | async"
     [leafletLayer]="getLayer(item)"
     (leafletLayerAdd)="addClickHandler($event, item)"

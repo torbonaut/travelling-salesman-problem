@@ -9,7 +9,7 @@ import {OpenRouteService} from '../services/open.route.service';
 import {forkJoin, of, Subscription} from 'rxjs';
 
 @State<DoctorsStateModel>({
-  name: 'doctors',
+  name: 'Doctors',
   defaults: DoctorsStateDefaults
 })
 @Injectable()

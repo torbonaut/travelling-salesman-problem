@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   title = 'travelling-salesman-problem';
   @Select(UiState.menuOpen) menuOpen$: Observable<boolean>;
   displayTermsPrivacyModal$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  displaySettingsModal$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private primeNGConfig: PrimeNGConfig,
@@ -31,5 +32,9 @@ export class AppComponent implements OnInit {
 
   showTermsPrivacyModal(): void {
     this.displayTermsPrivacyModal$.next(true);
+  }
+
+  showSettingsModal(): void {
+    this.displaySettingsModal$.next(true);
   }
 }

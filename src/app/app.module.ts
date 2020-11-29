@@ -23,6 +23,7 @@ import {UiState} from './store/ui.state';
 import {DialogModule} from 'primeng/dialog';
 import { DoctorInfoModalComponent } from './components/doctor-info-modal/doctor-info-modal.component';
 import { TermsPrivacyModalComponent } from './components/terms-privacy-modal/terms-privacy-modal.component';
+import {SettingsState} from './store/settings.state';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { TermsPrivacyModalComponent } from './components/terms-privacy-modal/ter
     DialogModule,
     NgxsModule.forRoot([
       DoctorsState,
-      UiState
+      UiState,
+      SettingsState
     ], {
       developmentMode: !environment.production
     }),

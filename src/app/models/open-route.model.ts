@@ -107,7 +107,7 @@ export interface OpenRouteVehicle {
   // a time_window object describing working hours
   time_window?: OpenRouteTimeWindow;
   // an array of break objects
-  breaks: OpenRouteVehicleBreak[];
+  breaks?: OpenRouteVehicleBreak[];
 }
 
 export interface OpenRouteInput {
@@ -118,5 +118,5 @@ export interface OpenRouteInput {
   // array of vehicle objects describing the available vehicles
   vehicles: OpenRouteVehicle[];
   // optional two-dimensional array describing a custom matrix
-  matrix?: number[][]
+  matrix?: number[][];
 }
