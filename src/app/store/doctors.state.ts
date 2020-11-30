@@ -27,6 +27,11 @@ export class DoctorsState implements NgxsOnInit {
   }
 
   @Selector()
+  static selectedDoctors(state: DoctorsStateModel): Doctor[] {
+    return state.items.filter( (doctor: Doctor) => doctor.isWaypoint === true);
+  }
+
+  @Selector()
   static doctorById(state: DoctorsStateModel): any {
     return (id: number) => {
       return state.items.filter((doctor: Doctor) => doctor.id === id);

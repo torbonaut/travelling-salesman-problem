@@ -8,6 +8,9 @@ import {Doctor} from '../../models/doctor.model';
 import {OpenRouteService} from '../../services/open.route.service';
 import {SettingsState} from '../../store/settings.state';
 import {SettingsStateModel} from '../../store/settings-state.model';
+import {switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {OpenRouteJob, OpenRouteVehicle} from '../../models/open-route.model';
+import {DoctorDto} from '../../dto/doctor.dto';
 
 @Component({
   selector: 'app-map',
@@ -17,8 +20,10 @@ import {SettingsStateModel} from '../../store/settings-state.model';
 })
 export class MapComponent implements OnInit {
   @Select(DoctorsState.allDoctors) allDoctors$: Observable<Doctor[]>;
-  selectedDoctor$: Subject<Doctor> = new Subject();
   @Select(SettingsState.settings) settings$: Observable<SettingsStateModel>;
+  @Select(DoctorsState.selectedDoctors) selectedDoctors$: Observable<Doctor[]>;
+  selectedDoctor$: Subject<Doctor> = new Subject();
+  route$: Observable<any>;
 
   mapOptions = {
     layers: [
@@ -38,11 +43,35 @@ export class MapComponent implements OnInit {
   };
 
   constructor(
-    private openRoute: OpenRouteService,
-    private zone: NgZone
+    private zone: NgZone,
+    private openRouteService: OpenRouteService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route$ = this.selectedDoctors$.pipe(
+      withLatestFrom(this.settings$),
+      switchMap( ([selectedDoctors, settings]) => {
+        const vehicle: OpenRouteVehicle = {
+          id: 1,
+          description: 'Fahrrad',
+          start: [settings.homeLongitude, settings.homeLatitude],
+          end: [settings.homeLongitude, settings.homeLatitude],
+          profile: 'driving-car'
+        };
+
+        const jobs: OpenRouteJob[] = [];
+        selectedDoctors.forEach( (doctor: Doctor) => {
+          const newJob: OpenRouteJob = {
+            id: doctor.id,
+            location: [doctor.long, doctor.lat],
+            description: DoctorDto.getFullName(doctor)
+          };
+          jobs.push(newJob);
+        });
+        return this.openRouteService.getOptimizedRoute(vehicle, jobs);
+      })
+    );
+  }
 
   getLayer(item: Doctor): Layer {
     return marker([item.lat, item.long], {

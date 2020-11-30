@@ -16,3 +16,4 @@
   ></div>
 </div>
 <app-doctor-info-modal [selectedDoctor$]="selectedDoctor$"></app-doctor-info-modal>
+<ng-container *ngIf="route$ | async"></ng-container>

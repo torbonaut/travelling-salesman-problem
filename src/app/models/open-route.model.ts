@@ -89,7 +89,7 @@ export interface OpenRouteVehicle {
   // an integer used as unique identifier
   id: number;
   // routing profile (defaults to 'car')
-  profile: string;
+  profile?: string;
   // a string describing this vehicle
   description?: string;
   // coordinates array
@@ -114,9 +114,13 @@ export interface OpenRouteInput {
   // array of job objects describing the places to visit
   jobs: OpenRouteJob[];
   // array of shipment objects describing pickup and delivery tasks
-  shipments: OpenRouteShipment[];
+  shipments?: OpenRouteShipment[];
   // array of vehicle objects describing the available vehicles
   vehicles: OpenRouteVehicle[];
   // optional two-dimensional array describing a custom matrix
   matrix?: number[][];
+}
+
+export interface OpenRouteOptimizationAPIResult {
+  data: any;
 }

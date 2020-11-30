@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {OpenRouteJob, OpenRouteOptimizationAPIResult, OpenRouteVehicle} from '../models/open-route.model';
+import {switchMap} from 'rxjs/operators';
 
 @Injectable()
 export class OpenRouteService {
@@ -16,9 +18,21 @@ export class OpenRouteService {
       .set('text', address)
       .set('size', '1')
       .set('api_key', this.apiKey);
-    const options = {
-      params
-    };
-    return this.http.get(this.apiUrl + '/geocode/search', options);
+    return this.http.get(this.apiUrl + '/geocode/search', { params });
+  }
+
+  public getOptimizedRoute(
+    vehicle: OpenRouteVehicle,
+    jobs: OpenRouteJob[]
+  ): Observable<OpenRouteOptimizationAPIResult> {
+    const params: HttpParams = new HttpParams()
+      .set('api_key', this.apiKey);
+    const data = { jobs, vehicles: [vehicle]};
+    return this.http.post(this.apiUrl + '/optimization', data, { params, observe: 'response'}).pipe(
+      switchMap( response => {
+        console.log('Yolo', response);
+        return of({ data: null});
+      })
+    );
   }
 }
