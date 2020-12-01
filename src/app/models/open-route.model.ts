@@ -18,6 +18,8 @@
 
 */
 
+import {HttpHeaders} from '@angular/common/http';
+
 export interface OpenRouteTimeWindow {
   relativeValue?: number[];
   absoluteValue?: number;
@@ -121,6 +123,55 @@ export interface OpenRouteInput {
   matrix?: number[][];
 }
 
+
+/* OPEN ROUTE API RESULT */
+
+export interface OpenRouteOptimizationAPIResultComputingTimes {
+  loading: number;
+  solving: number;
+}
+
+export interface OpenRouteOptimizationAPIResultRouteStep {
+  type: string;
+  location: number[];
+  arrival: number;
+  duration: number;
+  id?: number;
+  service?: number;
+  waiting_time?: number;
+}
+
+export interface OpenRouteOptimizationAPIResultRoute {
+  cost: number;
+  duration: number;
+  service: number;
+  steps: OpenRouteOptimizationAPIResultRouteStep[];
+  vehicle: number;
+  waiting_time: number;
+}
+
+export interface OpenRouteOptimizationAPIResultSummary {
+  computing_times: OpenRouteOptimizationAPIResultComputingTimes;
+  cost: number;
+  duration: number;
+  service: number;
+  unassigned: number;
+  waiting_time: number;
+}
+
+export interface OpenRouteOptimizationAPIResultBody {
+  code: number;
+  routes: OpenRouteOptimizationAPIResultRoute[];
+  summary: OpenRouteOptimizationAPIResultSummary;
+  unassigned: OpenRouteOptimizationAPIResultRouteStep[];
+
+}
 export interface OpenRouteOptimizationAPIResult {
-  data: any;
+  body: OpenRouteOptimizationAPIResultBody;
+  headers: HttpHeaders;
+  ok: boolean;
+  status: number;
+  statusText: string;
+  type: number;
+  url: string;
 }

@@ -24,6 +24,7 @@ import {DialogModule} from 'primeng/dialog';
 import { DoctorInfoModalComponent } from './components/doctor-info-modal/doctor-info-modal.component';
 import { TermsPrivacyModalComponent } from './components/terms-privacy-modal/terms-privacy-modal.component';
 import {SettingsState} from './store/settings.state';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {SettingsState} from './store/settings.state';
     ToolbarModule,
     SidebarModule,
     DialogModule,
+    ToastModule,
     NgxsModule.forRoot([
       DoctorsState,
       UiState,

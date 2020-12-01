@@ -11,4 +11,5 @@ export interface Doctor {
   lat: number;
   long: number;
   isWaypoint: boolean;
+  position?: number;
 }

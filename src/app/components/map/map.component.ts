@@ -1,29 +1,31 @@
 import {ChangeDetectionStrategy, NgZone, Component, OnInit} from '@angular/core';
-import {Icon, icon, latLng, Layer, LeafletEvent, marker, tileLayer} from 'leaflet';
+import {DivIcon, divIcon, Icon, icon, latLng, Layer, LeafletEvent, marker, tileLayer} from 'leaflet';
 import {environment} from '../../../environments/environment';
 import {Select} from '@ngxs/store';
 import {DoctorsState} from '../../store/doctors.state';
-import {Observable, Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {Doctor} from '../../models/doctor.model';
 import {OpenRouteService} from '../../services/open.route.service';
 import {SettingsState} from '../../store/settings.state';
 import {SettingsStateModel} from '../../store/settings-state.model';
-import {switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import {OpenRouteJob, OpenRouteVehicle} from '../../models/open-route.model';
+import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {OpenRouteJob, OpenRouteOptimizationAPIResult, OpenRouteVehicle} from '../../models/open-route.model';
 import {DoctorDto} from '../../dto/doctor.dto';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [MessageService]
 })
 export class MapComponent implements OnInit {
   @Select(DoctorsState.allDoctors) allDoctors$: Observable<Doctor[]>;
   @Select(SettingsState.settings) settings$: Observable<SettingsStateModel>;
   @Select(DoctorsState.selectedDoctors) selectedDoctors$: Observable<Doctor[]>;
   selectedDoctor$: Subject<Doctor> = new Subject();
-  route$: Observable<any>;
+  routeFromAPI$: Observable<OpenRouteOptimizationAPIResult>;
 
   mapOptions = {
     layers: [
@@ -44,11 +46,12 @@ export class MapComponent implements OnInit {
 
   constructor(
     private zone: NgZone,
-    private openRouteService: OpenRouteService
+    private openRouteService: OpenRouteService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
-    this.route$ = this.selectedDoctors$.pipe(
+    this.routeFromAPI$ = this.selectedDoctors$.pipe(
       withLatestFrom(this.settings$),
       switchMap( ([selectedDoctors, settings]) => {
         const vehicle: OpenRouteVehicle = {
@@ -69,6 +72,23 @@ export class MapComponent implements OnInit {
           jobs.push(newJob);
         });
         return this.openRouteService.getOptimizedRoute(vehicle, jobs);
+      }),
+      map( response => response as OpenRouteOptimizationAPIResult),
+      tap( apiResult => {
+        console.log('yolo', apiResult);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Aktualisiert',
+          detail: 'Die optimale Route wurde aktualisiert'
+        });
+      }),
+      catchError( error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Fehler',
+          detail: 'Berechnen oder übertragen der Route fehlgeschlagen'
+        });
+        return error;
       })
     );
   }
@@ -76,18 +96,26 @@ export class MapComponent implements OnInit {
   getLayer(item: Doctor): Layer {
     return marker([item.lat, item.long], {
       title: item.title + ' ' + item.lastname + ', ' + item.firstname,
-      icon: this.getIcon(item.isWaypoint)
+      icon: this.getIcon(item.isWaypoint, item.position)
     });
   }
 
-  getIcon(isWaypoint: boolean): Icon {
+  getIcon(isWaypoint: boolean, position: number | null = null): Icon | DivIcon {
     if (isWaypoint === true) {
-      return icon({
-        iconSize: [ 32, 32 ],
-        iconAnchor: [ 16, 31 ],
-        iconUrl: 'assets/marker-green.png',
-        shadowUrl: 'assets/marker-green-shadow.png'
-      });
+      if (position) {
+        return divIcon({
+          html: '<img src="assets/marker-green.png" href="yolo" /><span>' + position.toString() + '</span>',
+          className: 'number-label-marker'
+          }
+        );
+      } else {
+        return icon({
+          iconSize: [ 32, 32 ],
+          iconAnchor: [ 16, 31 ],
+          iconUrl: 'assets/marker-green.png',
+          shadowUrl: 'assets/marker-green-shadow.png'
+        });
+      }
     } else {
       return icon({
         iconSize: [ 32, 32 ],
@@ -116,4 +144,7 @@ export class MapComponent implements OnInit {
     });
   }
 }
+
+
+
 

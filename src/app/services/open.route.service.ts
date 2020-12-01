@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {OpenRouteJob, OpenRouteOptimizationAPIResult, OpenRouteVehicle} from '../models/open-route.model';
-import {switchMap} from 'rxjs/operators';
+import {catchError, switchMap, tap} from 'rxjs/operators';
 
 @Injectable()
 export class OpenRouteService {
@@ -24,15 +24,10 @@ export class OpenRouteService {
   public getOptimizedRoute(
     vehicle: OpenRouteVehicle,
     jobs: OpenRouteJob[]
-  ): Observable<OpenRouteOptimizationAPIResult> {
+  ): Observable<any> {
     const params: HttpParams = new HttpParams()
       .set('api_key', this.apiKey);
     const data = { jobs, vehicles: [vehicle]};
-    return this.http.post(this.apiUrl + '/optimization', data, { params, observe: 'response'}).pipe(
-      switchMap( response => {
-        console.log('Yolo', response);
-        return of({ data: null});
-      })
-    );
+    return this.http.post(this.apiUrl + '/optimization', data, { params, observe: 'response'});
   }
 }
